@@ -45,7 +45,7 @@ public class JobForm {
         locations = jobData.getLocations().findAll();
         coreCompetencies = jobData.getCoreCompetencies().findAll();
         positionTypes = jobData.getPositionTypes().findAll();
-        
+
 
     }
 
