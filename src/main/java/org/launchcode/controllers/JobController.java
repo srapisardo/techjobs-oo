@@ -1,5 +1,6 @@
 package org.launchcode.controllers;
 
+import org.launchcode.models.*;
 import org.launchcode.models.forms.JobForm;
 import org.launchcode.models.data.JobData;
 import org.springframework.stereotype.Controller;
@@ -46,9 +47,19 @@ public class JobController {
             return "new-job";
 
         }
+        String name = jobForm.getName();
+        Employer employer = jobData.getEmployers().findById(jobForm.getEmployerId());
+        Location location = jobData.getLocations().findById(jobForm.getLocationId());
+        PositionType positionType = jobData.getPositionTypes().findById(jobForm.getPositionTypeId());
+        CoreCompetency coreCompetency = jobData.getCoreCompetencies().findById(jobForm.getCoreCompetenciesId());
 
+        Job newJob = new Job(name, employer, location, positionType, coreCompetency);
 
-        return "";
+        jobData.add(newJob);
+
+        model.addAttribute("job", newJob);
+
+        return "redirect:?id=" + newJob.getId();
 
     }
 }
